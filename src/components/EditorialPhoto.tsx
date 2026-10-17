@@ -1,3 +1,5 @@
+"use client";
+
 import { photoForPost, type EditorialImageInput } from "@/lib/editorial";
 
 export default function EditorialPhoto({ post, className = "", priority = false }: { post: EditorialImageInput; className?: string; priority?: boolean }) {
