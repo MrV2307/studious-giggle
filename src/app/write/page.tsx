@@ -1,0 +1,13 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { createPost } from "@/app/actions";
+import { auth } from "@/lib/auth";
+export const metadata: Metadata = { title: "Write a story", robots: { index: false, follow: false } };
+export default async function WritePage() {
+  if (!auth) redirect("/sign-in?setup=required");
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session?.user) redirect("/sign-in?callbackURL=/write");
+  return <main className="wrap editor-shell"><Link href="/blogs" className="back-link">← Back to journal</Link><div className="eyebrow">The writing desk</div><h1>A fresh page.</h1><p className="editor-sub">Write the thing you wish you had read. Take your time.</p><form action={createPost}><div className="editor-grid"><div className="editor-main"><div className="field"><label htmlFor="title">Title</label><input id="title" name="title" required maxLength={130} placeholder="A title with a little room to breathe"/></div><div className="field"><label htmlFor="excerpt">Short introduction</label><textarea id="excerpt" name="excerpt" required maxLength={260} placeholder="What's this story about?"/><small>Appears on the journal card and above the story.</small></div><div className="field"><label htmlFor="content">Story body (Markdown supported)</label><textarea id="content" name="content" required maxLength={50000} className="body-input" placeholder={'Begin anywhere. A moment, a question, a small thing you noticed…\n\n## A little heading\n\nUse Markdown for headings, links, lists, quotes, and more.'}/><small>Markdown and GitHub-flavoured Markdown are supported. Raw HTML is not rendered.</small></div></div><aside className="editor-aside"><h3>Story details</h3><div className="field"><label htmlFor="category">Category</label><select id="category" name="category" defaultValue="Field notes"><option>Mindful living</option><option>Slow living</option><option>Field notes</option><option>Creative practice</option><option>Reading room</option><option>Personal essay</option></select></div><div className="field"><label htmlFor="tags">Tags (comma-separated)</label><input id="tags" name="tags" placeholder="Writing, Reflection"/></div><p>Your story gets a readable URL based on its title.</p><div className="notice">Your work is saved to MongoDB and associated with your account. You can edit or delete it later.</div><button className="btn" type="submit" style={{ width: "100%" }}>Publish story ↗</button></aside></div></form></main>;
+}

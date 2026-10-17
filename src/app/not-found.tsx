@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound() { return <main className="wrap not-found"><div className="eyebrow" style={{ justifyContent: "center" }}>404 · Lost in the margins</div><h1>Nothing on this page just yet.</h1><p className="muted">Perhaps the story moved, or perhaps there’s another path worth taking.</p><div><Link href="/" className="btn">Find your way home ↗</Link></div></main>; }
