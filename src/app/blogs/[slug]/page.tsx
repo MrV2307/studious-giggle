@@ -6,7 +6,6 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import BlogCard from "@/components/BlogCard";
 import EditorialPhoto from "@/components/EditorialPhoto";
-import EditorialPhoto from "@/components/EditorialPhoto";
 import Engagement from "@/components/Engagement";
 import { deletePost } from "@/app/actions";
 import { auth } from "@/lib/auth";
