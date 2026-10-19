@@ -8,6 +8,8 @@ const revealSelector =
 export default function MotionEnhancements() {
   const [progress, setProgress] = useState(0);
   const [showTop, setShowTop] = useState(false);
+  const [secret, setSecret] = useState("");
+  const [secretVisible, setSecretVisible] = useState(false);
 
   const update = useCallback(() => {
     const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
@@ -50,25 +52,53 @@ export default function MotionEnhancements() {
     if (main) mutationObserver.observe(main, { childList: true, subtree: true });
 
     let frame = 0;
+    let keyBuffer = "";
+    let toastTimer: ReturnType<typeof setTimeout> | undefined;
+    const revealSecret = (message: string) => {
+      setSecret(message);
+      setSecretVisible(true);
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => setSecretVisible(false), 3600);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key.length !== 1 || event.ctrlKey || event.metaKey || event.altKey) return;
+      keyBuffer = (keyBuffer + event.key.toLowerCase()).slice(-18);
+      if (keyBuffer.endsWith("margin")) {
+        revealSecret("You found the margin. ✳  Keep looking closer.");
+        keyBuffer = "";
+      }
+    };
     const onScroll = () => {
       if (frame) return;
       frame = requestAnimationFrame(() => {
         frame = 0;
         update();
         document.querySelector(".topbar")?.classList.toggle("is-scrolled", window.scrollY > 20);
+        if (!reduceMotion && window.innerWidth > 800) {
+          document.querySelectorAll<HTMLElement>(".home-page .hero-art,.home-page .post-art").forEach((element, index) => {
+            const rect = element.getBoundingClientRect();
+            if (rect.bottom < -80 || rect.top > window.innerHeight + 80) return;
+            const drift = Math.max(-16, Math.min(16, (rect.top - window.innerHeight * .48) * -.025));
+            element.style.setProperty("--parallax-y", `${drift + (index % 2 ? 2 : 0)}px`);
+          });
+        }
       });
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("keydown", onKeyDown);
     update();
+    onScroll();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      window.removeEventListener("keydown", onKeyDown);
       mutationObserver.disconnect();
       observer?.disconnect();
       if (frame) cancelAnimationFrame(frame);
+      if (toastTimer) clearTimeout(toastTimer);
     };
   }, [update]);
 
@@ -84,6 +114,9 @@ export default function MotionEnhancements() {
       >
         ↑
       </button>
+      <div className={`margin-secret-toast ${secretVisible ? "is-visible" : ""}`} role="status" aria-live="polite">
+        {secret}
+      </div>
     </>
   );
 }
