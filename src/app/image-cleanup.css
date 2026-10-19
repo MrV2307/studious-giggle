@@ -1,1 +1,24 @@
-.hero-art::before,.hero-art::after,.hero-art .photo-grain,.hero-art .hero-stamp,.hero-art .hero-art-footer,.hero-art .image-caption,.post-art .art-word,.post-art .photo-index,.editorial-image-stamp{display:none!important}.hero-art{border-radius:12px!important;overflow:hidden}.post-art{height:auto!important;aspect-ratio:4/3;border-radius:8px!important}.post-card,.post-card:nth-child(3n+2),.post-card:nth-child(3n+3),.post-card:hover{transform:none!important}.post-art .real-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none;filter:none}.hero-art .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none;filter:none}.editorial-image .editorial-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none;filter:none}
+/* Image geometry only. Keep overlays and transforms available to the editorial motion layer. */
+.hero-art,.post-art,.editorial-image,.article-hero{position:relative;isolation:isolate;overflow:hidden}
+.hero-art{min-height:300px}
+.post-art{height:auto;aspect-ratio:4/3;min-height:180px}
+.article-hero{position:relative}
+.hero-art .hero-photo,.post-art .real-photo,.editorial-image .editorial-photo,.article-hero .real-photo{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-art .hero-photo{object-position:center 53%;transform:scale(1.035) translateY(var(--parallax-y,0px));transition:opacity .65s ease,transform .85s cubic-bezier(.2,.8,.2,1)}
+.post-art .real-photo{transform:scale(1.025) translateY(var(--parallax-y,0px));transition:opacity .65s ease,transform .85s cubic-bezier(.2,.8,.2,1),filter .35s ease}
+.editorial-image .editorial-photo{transform:scale(1.045) translateY(var(--parallax-y,0px));transition:opacity .65s ease,transform .85s cubic-bezier(.2,.8,.2,1)}
+.article-hero .real-photo{transform:none;transition:opacity .65s ease}
+.real-photo{opacity:0;filter:saturate(.94) contrast(1.03)}
+.real-photo.is-loaded{opacity:1}
+.post-card:hover .post-art .real-photo{transform:scale(1.075) translateY(var(--parallax-y,0px));filter:saturate(1.08) contrast(1.05)}
+.editorial-image:hover .editorial-photo{transform:scale(1.08) translateY(var(--parallax-y,0px))}
+.hero-art:after{pointer-events:none;z-index:1}
+.hero-art .hero-stamp,.hero-art .hero-art-footer,.hero-art .image-caption,.hero-art .art-note,.post-art .art-word,.post-art .photo-index,.editorial-image-stamp,.article-photo-label{position:absolute;z-index:4;max-width:calc(100% - 24px)}
+.hero-art .hero-stamp{top:18px;right:18px}
+.hero-art .art-note,.hero-art .image-caption{left:18px;bottom:18px}
+.post-art .art-word{left:12px;top:12px}
+.post-art .photo-index{right:10px;bottom:10px}
+.editorial-image-stamp{left:16px;top:16px}
+.article-photo-label{right:12px;bottom:12px}
+@media(max-width:800px){.hero-art{min-height:280px}.post-art{aspect-ratio:5/4;min-height:0}.hero-art .hero-stamp{top:12px;right:12px}.hero-art .art-note,.hero-art .image-caption{left:12px;bottom:12px}}
+@media(prefers-reduced-motion:reduce){.hero-art .hero-photo,.post-art .real-photo,.editorial-image .editorial-photo,.article-hero .real-photo{transform:none!important;transition:none!important}}
