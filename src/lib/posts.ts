@@ -53,7 +53,7 @@ export async function getPosts(query?: string, tag?: string) {
         { tags: { $regex: escapeRegex(q), $options: "i" } },
       ];
     }
-    return await Post.find(filter).sort({ publishedAt: -1 }).limit(100).lean();
+    return await Post.find(filter).select("-imageData -imageMimeType").sort({ publishedAt: -1 }).limit(100).lean();
   } catch (error) {
     console.error("[margin] MongoDB story query failed; serving read-only starter stories.", error instanceof Error ? error.name : "UnknownError");
     return fallback();
@@ -66,7 +66,7 @@ export async function getPostBySlug(slug: string) {
   try {
     await connectDB();
     await ensureStarterStories();
-    return await Post.findOne({ slug }).lean();
+    return await Post.findOne({ slug }).select("-imageData -imageMimeType").lean();
   } catch (error) {
     console.error("[margin] MongoDB story lookup failed; using read-only starter content.", error instanceof Error ? error.name : "UnknownError");
     return fallback();
