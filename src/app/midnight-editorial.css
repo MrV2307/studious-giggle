@@ -279,3 +279,35 @@ h1,h2,h3,.brand,.post-title,.quote,.article-deck,.editorial-copy h2{font-family:
 
 .home-page .editorial-photo { filter: none !important; transform: scale(1.06) translateY(var(--parallax-y,0px)); transition: transform .8s cubic-bezier(.2,.8,.2,1); }
 .home-page .editorial-image:hover .editorial-photo { transform: scale(1.1) translateY(var(--parallax-y,0px)); }
+
+
+/* A proper editorial masthead: sticky, tactile, and visibly tied to reading progress. */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  isolation: isolate;
+}
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: var(--margin-scroll-progress,0%);
+  height: 2px;
+  background: linear-gradient(90deg,var(--green),var(--neon-cyan),var(--neon-pink));
+  box-shadow: 0 0 14px rgb(131 233 242 / 22%);
+  transition: width .08s linear;
+  pointer-events: none;
+}
+.topbar.is-scrolled .brand-mark {
+  transform: rotate(-7deg) scale(.92);
+  box-shadow: 0 0 0 1px rgb(212 243 106 / 25%),0 0 28px rgb(212 243 106 / 22%);
+}
+.topbar.is-scrolled .brand { letter-spacing: -2.5px; }
+.topbar .nav .write { transition: transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,background .25s; }
+.topbar .nav .write:hover { transform: translateY(-2px); box-shadow: 0 7px 22px rgb(212 243 106 / 18%); }
+@media(max-width:800px) {
+  .topbar { top: 0; }
+  .topbar::after { height: 2px; }
+}
