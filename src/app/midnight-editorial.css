@@ -169,3 +169,15 @@ html.margin-focus-mode main.wrap>section.section{display:none!important}
 @media(max-width:800px){.margin-fieldkit-trigger{left:12px;bottom:12px;min-height:44px;padding:0 11px}.margin-fieldkit{left:12px;bottom:66px;width:calc(100vw - 24px);max-height:73vh;padding:15px}.kit-header h2{font-size:24px}.topbar{top:0}.home-page .hero{gap:32px}.home-page .section-head::after{height:1px}}
 @media(max-width:480px){.margin-fieldkit{padding:14px}.kit-tool-grid{gap:7px}.kit-tool{font-size:9px;padding:9px}.margin-fieldkit-trigger{font-size:9px}.kit-prompt{font-size:15px}}
 @media(prefers-reduced-motion:reduce){.margin-fieldkit-trigger,.margin-fieldkit,.kit-tool,.save-story-button{transition:none!important}.home-page .post-art,.home-page .editorial-image{animation:none!important;will-change:auto}.home-page .section-head::after{transform:none!important}}
+
+/* QUOTE / ISSUE 04 — visually separate editorial text from the acid-lime band. */
+.home-page .feature-inner>div:last-child{position:relative;min-width:0;padding:clamp(24px,3.7vw,46px);border:1px solid #43516a;background:radial-gradient(ellipse at 100% 0%,rgb(183 160 255 / 12%),transparent 45%),linear-gradient(145deg,#172235,#11162a 72%);box-shadow:12px 12px 0 rgb(16 24 40 / 24%);color:#f4f0ff}
+.home-page .feature-inner>div:last-child::before{content:"M / NOTEBOOK";position:absolute;top:15px;right:16px;font:9px 'DM Mono',monospace;letter-spacing:.12em;color:#9ca9bc}
+.home-page .feature-inner .quote-mark{height:58px;margin:13px 0 13px;font-size:94px;line-height:.72;color:#ff8bb3;text-shadow:0 0 24px rgb(255 139 179 / 20%)}
+.home-page .feature-inner .quote{max-width:600px;margin:0;color:#f4f0ff;font-size:clamp(25px,3vw,38px);line-height:1.27;letter-spacing:-.045em;overflow-wrap:anywhere;text-wrap:pretty}
+.home-page .feature-inner .quote-by{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:22px;padding-top:14px;border-top:1px solid #43516a;color:#83e9f2;font:9px 'DM Mono',monospace;letter-spacing:.09em}
+.home-page .feature-inner .quote-issue{display:inline-grid;place-items:center;min-width:35px;height:35px;padding:0 6px;border:1px solid #ff8bb3;border-radius:50%;color:#ff8bb3;font:9px 'DM Mono',monospace}
+.home-page .feature-inner .quote-byline{color:#c0c8d6}
+@media(max-width:800px){.home-page .feature-inner{grid-template-columns:1fr;gap:24px}.home-page .feature-inner>div:last-child{padding:24px 21px;box-shadow:7px 7px 0 rgb(16 24 40 / 24%)}.home-page .feature-inner .quote{font-size:clamp(25px,5.7vw,34px)}.home-page .feature-inner .quote-by{margin-top:17px}}
+@media(prefers-reduced-motion:reduce){.home-page .feature-inner>div:last-child{scroll-behavior:auto}}
+
