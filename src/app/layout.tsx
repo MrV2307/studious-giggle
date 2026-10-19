@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import MotionEnhancements from "@/components/MotionEnhancements";
 import "./globals.css";
+import "./image-cleanup.css";
 export const metadata: Metadata = {
   title: { default: "Margin — A journal for the curious", template: "%s · Margin" },
   description: "Thoughtful notes on creativity, slow living, and the small things that make a life.",
