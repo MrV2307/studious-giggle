@@ -3,6 +3,8 @@ import EditorialPhoto from "@/components/EditorialPhoto";
 import SaveStoryButton from "@/components/SaveStoryButton";
 
 type CardPost = {
+  _id?: unknown;
+  imageUrl?: string;
   slug: string;
   title: string;
   excerpt: string;
