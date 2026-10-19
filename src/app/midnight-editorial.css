@@ -276,3 +276,6 @@ h1,h2,h3,.brand,.post-title,.quote,.article-deck,.editorial-copy h2{font-family:
   .home-page .hero-art::after { content: "MARGIN JOURNAL"; }
   .home-page .feature-band::before { animation: none !important; }
 }
+
+.home-page .editorial-photo { filter: none !important; transform: scale(1.06) translateY(var(--parallax-y,0px)); transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+.home-page .editorial-image:hover .editorial-photo { transform: scale(1.1) translateY(var(--parallax-y,0px)); }
