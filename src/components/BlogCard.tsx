@@ -1,5 +1,6 @@
 import Link from "next/link";
 import EditorialPhoto from "@/components/EditorialPhoto";
+import SaveStoryButton from "@/components/SaveStoryButton";
 
 type CardPost = {
   slug: string;
@@ -34,6 +35,7 @@ export default function BlogCard({ post }: { post: CardPost; variant?: string })
           <Link className="tag" key={tag} href={`/blogs?tag=${encodeURIComponent(tag)}`}>{tag}</Link>
         ))}
       </div>
+      <SaveStoryButton slug={post.slug} title={post.title} />
       <Link className="read-link" href={`/blogs/${post.slug}`}>Read the story ↗</Link>
     </article>
   );
