@@ -37,7 +37,7 @@ async function requiredCoverImage(form: FormData) {
   if (file.size > 1_500_000) {
     throw new Error("Please keep the cover image under 1.5 MB so the journal stays fast.");
   }
-  return { imageData: Buffer.from(await file.arrayBuffer()).toString("base64"), imageMimeType: file.type };
+  return { imageData: Buffer.from(await file.arrayBuffer()).toString("base64"), imageMimeType: file.type as "image/jpeg" | "image/png" | "image/webp" | "image/avif" };
 }
 
 export async function createPost(form: FormData) {
