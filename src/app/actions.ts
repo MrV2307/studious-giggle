@@ -25,15 +25,33 @@ async function uniqueSlug(title: string, ignoreId?: string) {
   return slug;
 }
 
+async function requiredCoverImage(form: FormData) {
+  const file = form.get("coverImage");
+  const allowed = new Set(["image/jpeg", "image/png", "image/webp", "image/avif"]);
+  if (!(file instanceof File) || file.size === 0) {
+    throw new Error("Add a cover image before publishing your story.");
+  }
+  if (!allowed.has(file.type)) {
+    throw new Error("Use a JPG, PNG, WebP, or AVIF image.");
+  }
+  if (file.size > 1_500_000) {
+    throw new Error("Please keep the cover image under 1.5 MB so the journal stays fast.");
+  }
+  return { imageData: Buffer.from(await file.arrayBuffer()).toString("base64"), imageMimeType: file.type };
+}
+
 export async function createPost(form: FormData) {
   const user = await currentUser(); await connectDB();
   const title = requiredString(form, "title", 130);
   const excerpt = requiredString(form, "excerpt", 260);
   const content = requiredString(form, "content", 50000);
+  const cover = await requiredCoverImage(form);
   const category = String(form.get("category") || "Field notes").slice(0, 60);
   const tags = String(form.get("tags") || "").split(",").map(t => t.trim()).filter(Boolean).slice(0, 8).map(t => t.slice(0, 32));
   const slug = await uniqueSlug(title);
-  await Post.create({ title, slug, excerpt, content, category, tags, authorId: user.id, authorName: user.name });
+  const post = new Post({ title, slug, excerpt, content, category, tags, authorId: user.id, authorName: user.name, ...cover });
+  post.imageUrl = `/api/stories/${String(post._id)}/image`;
+  await post.save();
   revalidatePath("/"); revalidatePath("/blogs"); redirect(`/blogs/${slug}`);
 }
 
