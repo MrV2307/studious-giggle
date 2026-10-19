@@ -31,27 +31,45 @@ function publicDemoStories() {
 }
 
 export async function getPosts(query?: string, tag?: string) {
-  if (!process.env.MONGODB_URI) {
-    const text = query?.trim().toLowerCase() || "";
-    return publicDemoStories().filter(post => (!tag || post.tags.includes(tag)) && (!text || `${post.title} ${post.excerpt} ${post.content} ${post.tags.join(" ")} ${post.category}`.toLowerCase().includes(text)));
+  const text = query?.trim().toLowerCase() || "";
+  const fallback = () => publicDemoStories().filter(post =>
+    (!tag || post.tags.includes(tag)) &&
+    (!text || `${post.title} ${post.excerpt} ${post.content} ${post.tags.join(" ")} ${post.category}`.toLowerCase().includes(text))
+  );
+
+  if (!process.env.MONGODB_URI) return fallback();
+
+  try {
+    await connectDB();
+    await ensureStarterStories();
+    const filter: Record<string, unknown> = {};
+    if (tag) filter.tags = tag;
+    if (query?.trim()) {
+      const q = query.trim().slice(0, 100);
+      filter.$or = [
+        { title: { $regex: escapeRegex(q), $options: "i" } },
+        { excerpt: { $regex: escapeRegex(q), $options: "i" } },
+        { content: { $regex: escapeRegex(q), $options: "i" } },
+        { tags: { $regex: escapeRegex(q), $options: "i" } },
+      ];
+    }
+    return await Post.find(filter).sort({ publishedAt: -1 }).limit(100).lean();
+  } catch (error) {
+    console.error("[margin] MongoDB story query failed; serving read-only starter stories.", error instanceof Error ? error.name : "UnknownError");
+    return fallback();
   }
-  await connectDB(); await ensureStarterStories();
-  const filter: Record<string, unknown> = {};
-  if (tag) filter.tags = tag;
-  if (query?.trim()) {
-    const q = query.trim().slice(0, 100);
-    filter.$or = [
-      { title: { $regex: escapeRegex(q), $options: "i" } },
-      { excerpt: { $regex: escapeRegex(q), $options: "i" } },
-      { content: { $regex: escapeRegex(q), $options: "i" } },
-      { tags: { $regex: escapeRegex(q), $options: "i" } },
-    ];
-  }
-  return Post.find(filter).sort({ publishedAt: -1 }).limit(100).lean();
 }
+
 export async function getPostBySlug(slug: string) {
-  if (!process.env.MONGODB_URI) return publicDemoStories().find(post => post.slug === slug) || null;
-  await connectDB(); await ensureStarterStories();
-  return Post.findOne({ slug }).lean();
+  const fallback = () => publicDemoStories().find(post => post.slug === slug) || null;
+  if (!process.env.MONGODB_URI) return fallback();
+  try {
+    await connectDB();
+    await ensureStarterStories();
+    return await Post.findOne({ slug }).lean();
+  } catch (error) {
+    console.error("[margin] MongoDB story lookup failed; using read-only starter content.", error instanceof Error ? error.name : "UnknownError");
+    return fallback();
+  }
 }
 function escapeRegex(text: string) { return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
