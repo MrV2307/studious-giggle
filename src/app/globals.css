@@ -204,3 +204,28 @@ html, body { max-width: 100%; overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
   .hero-photo, .real-photo { transition: none !important; transform: none !important; }
 }
+
+
+/* Keep navigation and controls comfortable to use on touch screens. */
+.nav > a, .nav > button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav .signin, .nav .write, .nav .surprise-link {
+  padding: 10px 13px;
+  line-height: 1.25;
+}
+.mobile-menu-toggle {
+  width: 44px;
+  height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 800px) {
+  .mobile-menu-toggle { display: inline-flex; }
+  .nav.nav-open > a, .nav.nav-open > button { min-height: 44px; }
+  .nav.nav-open .signin, .nav.nav-open .write, .nav.nav-open .surprise-link { padding: 10px 13px; }
+}
