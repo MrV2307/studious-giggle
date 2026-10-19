@@ -13,7 +13,9 @@ export default function MotionEnhancements() {
 
   const update = useCallback(() => {
     const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    setProgress(Math.max(0, Math.min(100, (window.scrollY / max) * 100)));
+    const nextProgress = Math.max(0, Math.min(100, (window.scrollY / max) * 100));
+    setProgress(nextProgress);
+    document.documentElement.style.setProperty("--margin-scroll-progress", `${nextProgress}%`);
     setShowTop(window.scrollY > 480);
   }, []);
 
@@ -30,7 +32,7 @@ export default function MotionEnhancements() {
                 }
               });
             },
-            { rootMargin: "0px 0px -5% 0px", threshold: 0.06 },
+            { rootMargin: "0px 0px -3% 0px", threshold: 0 },
           )
         : null;
 
@@ -48,8 +50,8 @@ export default function MotionEnhancements() {
     document.documentElement.classList.add("motion-ready");
     observe();
     const mutationObserver = new MutationObserver(observe);
-    const main = document.querySelector("main");
-    if (main) mutationObserver.observe(main, { childList: true, subtree: true });
+    const root = document.querySelector(".announcement-root") || document.body;
+    mutationObserver.observe(root, { childList: true, subtree: true });
 
     let frame = 0;
     let keyBuffer = "";
@@ -74,12 +76,26 @@ export default function MotionEnhancements() {
         frame = 0;
         update();
         document.querySelector(".topbar")?.classList.toggle("is-scrolled", window.scrollY > 20);
-        if (!reduceMotion && window.innerWidth > 800) {
-          document.querySelectorAll<HTMLElement>(".home-page .hero-art,.home-page .post-art").forEach((element, index) => {
+        if (!reduceMotion) {
+          const targets = document.querySelectorAll<HTMLElement>(
+            ".home-page .hero-art .hero-photo,.home-page .post-art .real-photo,.home-page .editorial-image .editorial-photo",
+          );
+          targets.forEach((element, index) => {
             const rect = element.getBoundingClientRect();
-            if (rect.bottom < -80 || rect.top > window.innerHeight + 80) return;
-            const drift = Math.max(-16, Math.min(16, (rect.top - window.innerHeight * .48) * -.025));
-            element.style.setProperty("--parallax-y", `${drift + (index % 2 ? 2 : 0)}px`);
+            if (rect.bottom < -100 || rect.top > window.innerHeight + 100) return;
+            const centerOffset =
+              (rect.top + rect.height * 0.5 - window.innerHeight * 0.5) /
+              Math.max(window.innerHeight, 1);
+            const drift = Math.max(-28, Math.min(28, centerOffset * -42));
+            element.style.setProperty("--parallax-y", `${drift + (index % 2 ? 3 : -2)}px`);
+          });
+          document.querySelectorAll<HTMLElement>(".home-page .section-head").forEach((element) => {
+            const rect = element.getBoundingClientRect();
+            const sectionProgress = Math.max(
+              0,
+              Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)),
+            );
+            element.style.setProperty("--section-line", String(sectionProgress));
           });
         }
       });
