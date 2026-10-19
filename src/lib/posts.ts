@@ -21,6 +21,7 @@ function publicDemoStories() {
   const now = new Date("2026-10-17T09:00:00.000Z");
   return starterStories.map((story, index) => ({
     ...story,
+    imageUrl: undefined,
     _id: `margin-demo-${index + 1}`,
     likes: [] as string[],
     comments: [] as { _id: string; authorName: string; body: string; createdAt: Date }[],
