@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import MotionEnhancements from "@/components/MotionEnhancements";
+import FieldKit from "@/components/FieldKit";
 import "./globals.css";
 import "./image-cleanup.css";
 import "./homepage-redesign.css";
@@ -14,5 +15,5 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: "#101828", width: "device-width", initialScale: 1 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" suppressHydrationWarning><body className="margin-body"><div className="announcement-root"><Header/>{children}<MotionEnhancements/><footer className="wrap footer"><a className="brand" href="/"><span className="brand-mark">m.</span><span>margin<span className="rust-dot">.</span></span></a><span>Made slowly, with attention. © {new Date().getFullYear()} Margin Journal.</span><div className="footer-links"><a href="/about">Our story</a><a href="/blogs">The journal</a><a href="/sign-in">Your account</a></div></footer></div></body></html>;
+  return <html lang="en" suppressHydrationWarning><body className="margin-body"><div className="announcement-root"><Header/>{children}<MotionEnhancements/><FieldKit/><footer className="wrap footer"><a className="brand" href="/"><span className="brand-mark">m.</span><span>margin<span className="rust-dot">.</span></span></a><span>Made slowly, with attention. © {new Date().getFullYear()} Margin Journal.</span><div className="footer-links"><a href="/about">Our story</a><a href="/blogs">The journal</a><a href="/sign-in">Your account</a></div></footer></div></body></html>;
 }
