@@ -1,4 +1,4 @@
-export type EditorialImageInput = { _id?: unknown; imageUrl?: string; slug?: string; category?: string; title?: string; tags?: string[] };
+export type EditorialImageInput = { _id?: unknown; imageUrl?: string | null; slug?: string; category?: string; title?: string; tags?: string[] };
 
 const photos = {
   landscape: { src: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1800&q=85", alt: "Soft sunlight spilling over a misty green landscape" },
