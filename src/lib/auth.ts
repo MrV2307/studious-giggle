@@ -11,26 +11,20 @@ const client = authConfigured && uri ? (globalForAuth.marginAuthMongo ?? new Mon
 if (client && process.env.NODE_ENV !== "production") globalForAuth.marginAuthMongo = client;
 const db = client?.db();
 
-// Include both stable production hostnames and the known Vercel aliases.
-// Better Auth validates the browser's Origin against this list; the client
-// uses window.location.origin so the exact hostname matters.
+// Prefer a stable production hostname in BETTER_AUTH_URL / NEXT_PUBLIC_SITE_URL.
+// Vercel previews use generated subdomains, so allow those origins for previews.
 const trustedOrigins = [
   process.env.BETTER_AUTH_URL,
   process.env.NEXT_PUBLIC_SITE_URL,
-  "https://studious-giggle-vparmarbhardwaj-7101.vercel.app",
-  "https://studious-giggle-git-main-vparmarbhardwaj-7101.vercel.app",
-  "https://studious-giggle-tawny.vercel.app",
-  "https://margin-journal-vparmarbhardwaj-7101.vercel.app",
-  "https://margin-journal-git-main-vparmarbhardwaj-7101.vercel.app",
-  "https://margin-journal-inky.vercel.app",
+  "https://*.vercel.app",
   "http://localhost:3000",
 ].filter((origin): origin is string => Boolean(origin));
 
 export const auth = client && db && secret ? betterAuth({
   database: mongodbAdapter(db, { client }),
   secret,
-  baseURL: process.env.BETTER_AUTH_URL,
-  emailAndPassword: { enabled: true, minPasswordLength: 10 },
+  baseURL: process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_SITE_URL,
+  emailAndPassword: { enabled: true, minPasswordLength: 8 },
   session: { expiresIn: 60 * 60 * 24 * 14, updateAge: 60 * 60 * 24 },
   trustedOrigins: [...new Set(trustedOrigins)],
 }) : null;
