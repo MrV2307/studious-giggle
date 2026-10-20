@@ -4,7 +4,7 @@ import SaveStoryButton from "@/components/SaveStoryButton";
 
 type CardPost = {
   _id?: unknown;
-  imageUrl?: string;
+  imageUrl?: string | null;
   slug: string;
   title: string;
   excerpt: string;
