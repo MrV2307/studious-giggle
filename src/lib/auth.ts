@@ -16,7 +16,12 @@ const db = client?.db();
 const trustedOrigins = [
   process.env.BETTER_AUTH_URL,
   process.env.NEXT_PUBLIC_SITE_URL,
-  "https://*.vercel.app",
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined,
+  "https://studious-giggle-vparmarbhardwaj-7101.vercel.app",
+  "https://studious-giggle-tawny.vercel.app",
+  "https://margin-journal-vparmarbhardwaj-7101.vercel.app",
+  "https://margin-journal-inky.vercel.app",
   "http://localhost:3000",
 ].filter((origin): origin is string => Boolean(origin));
 
