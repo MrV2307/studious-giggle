@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function HomePage() {
   const posts = await getPosts();
   const editorPick = posts.find(post => post.slug === "make-things-badly-on-purpose") || posts[3] || posts[0];
+  const heroStory = posts.find(post => post.slug !== editorPick?.slug) || posts[0];
 
   return (
     <main className="home-page">
@@ -21,20 +22,42 @@ export default async function HomePage() {
             <Link className="text-link" href="/about">The story behind Margin <span>↗</span></Link>
           </div>
           <div className="hero-aside-note"><span className="signal">✳</span><span>A living notebook for curious minds.<br />No final answers required.</span></div>
+          <Link className="hero-scroll-cue" href="#manifesto"><span className="hero-scroll-cue-dot" /> SCROLL TO FIND SOMETHING <span aria-hidden="true">↓</span></Link>
         </div>
-        <div className="hero-art" aria-label="A quiet landscape, a reminder to notice the world">
-          <EditorialPhoto post={{}} className="hero-photo" priority />
-          <div className="margin-photo-note" aria-hidden="true"><span>LOOK CLOSER</span><span>there is always more here</span></div>
-          <span className="margin-orbit-label" aria-hidden="true">M / 04</span>
+
+        <div className="hero-scene" aria-label="An atmospheric view of a glowing nebula and a story from the Margin journal">
+          <div className="hero-art">
+            <EditorialPhoto post={{ category: "Cosmos", title: "A distant nebula in a dark sky", tags: ["stars"] }} className="hero-photo" priority />
+            <span className="hero-image-shade" aria-hidden="true" />
+            <span className="hero-light-beam" aria-hidden="true" />
+            <span className="hero-scene-index" aria-hidden="true"><span className="hero-index-mark">✳</span> MARGIN / VOL. 04</span>
+            <span className="hero-scene-coordinate" aria-hidden="true">A PLACE TO THINK · A PLACE TO BEGIN</span>
+          </div>
+          <span className="hero-orbit hero-orbit-one" aria-hidden="true" />
+          <span className="hero-orbit hero-orbit-two" aria-hidden="true" />
+          <span className="hero-orbit-spark" aria-hidden="true">✳</span>
+          <span className="hero-orbit-copy" aria-hidden="true">KEEP<br />WONDERING</span>
+          {heroStory && (
+            <Link className="hero-floating-story" href={`/blogs/${heroStory.slug}`} aria-label={`Read ${heroStory.title}`}>
+              <div className="hero-floating-topline"><span>OPEN JOURNAL ENTRY</span><span aria-hidden="true">↗</span></div>
+              <div className="hero-floating-content">
+                <div className="hero-story-thumb"><EditorialPhoto post={heroStory} className="hero-story-photo" /></div>
+                <div className="hero-story-copy">
+                  <span className="hero-story-kicker">A PAGE FROM THE JOURNAL</span>
+                  <strong>{heroStory.title}</strong>
+                  <span className="hero-story-action">READ THE PIECE <span aria-hidden="true">↗</span></span>
+                </div>
+              </div>
+            </Link>
+          )}
         </div>
       </section>
 
-      <section className="margin-manifesto wrap" aria-label="The Margin idea">
+      <section className="margin-manifesto wrap" id="manifesto" aria-label="The Margin idea">
         <div className="manifesto-index"><span>FIELD NOTE 001</span><span>WHY WE’RE HERE</span></div>
         <p>Not everything needs to become a side hustle, a hot take, or a perfectly finished thing.</p>
         <div className="manifesto-foot"><span className="manifesto-star">✳</span><span>Sometimes noticing is enough.</span><span className="manifesto-rule" /></div>
       </section>
-
 
       <nav className="topic-rail wrap" aria-label="Browse journal themes">
         <span className="topic-kicker">PICK A THREAD</span>
@@ -45,7 +68,7 @@ export default async function HomePage() {
         <Link className="topic-rail-cta" href="/blogs/make-things-badly-on-purpose">Open a random page ↗</Link>
       </nav>
 
-      <section className="section wrap">
+      <section className="section wrap" id="latest">
         <div className="section-head">
           <div><div className="eyebrow">Fresh ink / still unfolding <span className="section-spark">✳</span></div><h2>Things we’ve been thinking about<span className="neon-period">.</span></h2></div>
           <p>Not the whole story.<br />Just a place to begin.</p>
