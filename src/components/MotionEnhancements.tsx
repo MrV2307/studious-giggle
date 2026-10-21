@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 const revealSelector =
-  ".hero-copy,.hero-art,.section-head,.post-card,.feature-inner>div,.newsletter>*,.page-intro,.about-grid>*,.values>div,.article-top>*,.article-hero,.article-body>*,.comments>*,.editorial-feature>*";
+  ".hero-copy,.hero-art,.section-head,.post-card,.feature-inner>div,.newsletter>*,.page-intro,.about-grid>*,.values>div,.article-top>*,.article-hero,.article-body>*,.comments>*,.editorial-feature>*,.stardance-layout>*";
 
 export default function MotionEnhancements() {
   const [progress, setProgress] = useState(0);

@@ -8,6 +8,7 @@ import "./midnight-editorial.css";
 import "./refined-editorial.css";
 import "./margin-story.css";
 import "./revolution.css";
+import "./stardance.css";
 
 export const metadata: Metadata = {
   title: { default: "Margin — A journal for the curious", template: "%s · Margin" },

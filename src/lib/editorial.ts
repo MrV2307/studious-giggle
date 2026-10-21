@@ -30,7 +30,7 @@ export function photoForPost(post: EditorialImageInput): { src: string; alt: str
   if (/people|friend|community|relationship|conversation/.test(text)) return photos.people;
   if (/mountain|hike|trail|climb/.test(text)) return photos.mountain;
   if (/night|sleep|dream|dark|evening|moon/.test(text)) return photos.night;
-  if (/\\bart\\b|paint|draw|craft|creative|creativity|make things|colour|color/.test(text)) return photos.art;
+  if (/\bart\b|paint|draw|craft|creative|creativity|make things|colour|color/.test(text)) return photos.art;
   if (/city|travel|street|place|neighbour|neighborhood|walk/.test(text)) return photos.city;
   if (/coffee|morning|ritual|tea|slow living|mug/.test(text)) return photos.coffee;
   if (/book|read|reading|library/.test(text)) return photos.books;
