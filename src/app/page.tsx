@@ -5,8 +5,6 @@ import { getPosts } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
 
-const ambientParticles = [{"x":"4%","y":"8%","size":2,"tone":"cyan","delay":"-1.3s","duration":"6.9s"},{"x":"11%","y":"23%","size":3,"tone":"violet","delay":"-4.4s","duration":"8.2s"},{"x":"17%","y":"6%","size":2,"tone":"lime","delay":"-2.1s","duration":"7.1s"},{"x":"23%","y":"38%","size":2,"tone":"cyan","delay":"-5.5s","duration":"9.3s"},{"x":"29%","y":"16%","size":4,"tone":"spark","delay":"-3.1s","duration":"10s"},{"x":"33%","y":"72%","size":2,"tone":"violet","delay":"-6s","duration":"7.8s"},{"x":"38%","y":"25%","size":3,"tone":"cyan","delay":"-1.8s","duration":"8.4s"},{"x":"43%","y":"91%","size":2,"tone":"lime","delay":"-4.7s","duration":"6.7s"},{"x":"48%","y":"11%","size":2,"tone":"violet","delay":"-2.9s","duration":"9.5s"},{"x":"53%","y":"47%","size":3,"tone":"cyan","delay":"-6.3s","duration":"8.6s"},{"x":"57%","y":"31%","size":2,"tone":"lime","delay":"-1.1s","duration":"7.5s"},{"x":"62%","y":"82%","size":3,"tone":"violet","delay":"-3.7s","duration":"9.1s"},{"x":"67%","y":"15%","size":2,"tone":"cyan","delay":"-5.1s","duration":"8.8s"},{"x":"71%","y":"62%","size":4,"tone":"spark","delay":"-2.4s","duration":"10.5s"},{"x":"75%","y":"7%","size":2,"tone":"lime","delay":"-4.3s","duration":"7.4s"},{"x":"79%","y":"39%","size":3,"tone":"cyan","delay":"-1.9s","duration":"8s"},{"x":"84%","y":"18%","size":2,"tone":"violet","delay":"-5.8s","duration":"9.8s"},{"x":"88%","y":"75%","size":2,"tone":"cyan","delay":"-2.5s","duration":"7s"},{"x":"93%","y":"29%","size":3,"tone":"lime","delay":"-3.4s","duration":"8.7s"},{"x":"97%","y":"54%","size":2,"tone":"violet","delay":"-6.6s","duration":"9.2s"},{"x":"8%","y":"83%","size":2,"tone":"lime","delay":"-3.9s","duration":"7.7s"},{"x":"19%","y":"57%","size":3,"tone":"cyan","delay":"-2.7s","duration":"8.1s"},{"x":"27%","y":"94%","size":2,"tone":"violet","delay":"-5.2s","duration":"9.4s"},{"x":"36%","y":"54%","size":2,"tone":"lime","delay":"-1.6s","duration":"6.8s"},{"x":"46%","y":"68%","size":3,"tone":"cyan","delay":"-4.8s","duration":"8.9s"},{"x":"59%","y":"4%","size":2,"tone":"violet","delay":"-3.2s","duration":"7.6s"},{"x":"69%","y":"94%","size":2,"tone":"cyan","delay":"-5.9s","duration":"9.6s"},{"x":"82%","y":"89%","size":3,"tone":"lime","delay":"-2.2s","duration":"8.3s"},{"x":"91%","y":"6%","size":2,"tone":"cyan","delay":"-4.6s","duration":"7.3s"},{"x":"55%","y":"96%","size":2,"tone":"violet","delay":"-1.4s","duration":"9.1s"}] as const;
-
 export default async function HomePage() {
   const posts = await getPosts();
   const editorPick = posts.find(post => post.slug === "make-things-badly-on-purpose") || posts[3] || posts[0];
@@ -14,22 +12,6 @@ export default async function HomePage() {
 
   return (
     <main className="home-page">
-      <div className="home-particle-field" aria-hidden="true">
-        {ambientParticles.map((particle, index) => (
-          <span
-            key={index}
-            className={`home-particle is-${particle.tone}`}
-            style={{
-              left: particle.x,
-              top: particle.y,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-              animationDelay: particle.delay,
-              animationDuration: particle.duration,
-            }}
-          />
-        ))}
-      </div>
       <section className="hero wrap">
         <div className="hero-copy">
           <div className="eyebrow"><span className="live-dot" /> An independent journal / issue 04</div>
@@ -44,6 +26,10 @@ export default async function HomePage() {
         </div>
 
         <div className="hero-scene" aria-label="An atmospheric view of a glowing nebula and a story from the Margin journal">
+          <span className="hero-pulse-halo" aria-hidden="true" />
+          <span className="home-star-orbit home-star-orbit-one" aria-hidden="true"><span className="home-star-glyph">✳</span></span>
+          <span className="home-star-orbit home-star-orbit-two" aria-hidden="true"><span className="home-star-glyph">✳</span></span>
+          <span className="home-star-orbit home-star-orbit-three" aria-hidden="true"><span className="home-star-glyph">✳</span></span>
           <div className="hero-art">
             <EditorialPhoto post={{ category: "Cosmos", title: "A distant nebula in a dark sky", tags: ["stars"] }} className="hero-photo" priority />
             <span className="hero-image-shade" aria-hidden="true" />
