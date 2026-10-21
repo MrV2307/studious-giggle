@@ -15,7 +15,7 @@ export default async function HomePage() {
       <section className="hero wrap">
         <div className="hero-copy">
           <div className="eyebrow"><span className="live-dot" /> An independent journal / issue 04</div>
-          <h1>The world is loud.<br />Keep a little room for <em>wonder</em><span className="headline-period" aria-hidden="true">.</span></h1>
+          <h1>The world is loud.<br />Keep a little room<br />for <em>wonder</em><span className="headline-period" aria-hidden="true">.</span></h1>
           <p className="hero-copy-text">Margin is a journal for the things that almost slip past: half-formed ideas, small discoveries, creative detours, and the details that make an ordinary day feel a little less ordinary.</p>
           <div className="hero-actions">
             <Link className="btn" href="/blogs">Wander through the journal <span aria-hidden="true">↗</span></Link>
