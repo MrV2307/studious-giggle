@@ -43,7 +43,7 @@ export default function AuthForm({ mode, configured = false }: { mode: "sign-in"
         <p className="auth-story-copy">{signup
           ? "Start a notebook that belongs to you. Publish the thing you can't stop thinking about, the experiment that went sideways, the tiny detail everyone else walked past."
           : "Your drafts, your odd little discoveries, your unfinished thoughts. They're right where you left them."}</p>
-        <div className="auth-manifesto"><span>THE MARGIN RULE</span><p>“You don't need a niche. You need a point of view.”</p><i>— a note to self</i></div>
+        <div className="auth-manifesto"><span>THE MARGIN RULE</span><p>“You don&apos;t need a niche. You need a point of view.”</p><i>— a note to self</i></div>
         <div className="auth-side-foot"><span>INDEPENDENT BY NATURE</span><span>EST. IN CURIOSITY ↗</span></div>
       </div>
 

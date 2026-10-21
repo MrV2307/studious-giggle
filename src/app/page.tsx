@@ -2,7 +2,6 @@ import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
 import EditorialPhoto from "@/components/EditorialPhoto";
 import { getPosts } from "@/lib/posts";
-import StardanceDispatch from "@/components/StardanceDispatch";
 
 export const dynamic = "force-dynamic";
 
@@ -36,7 +35,6 @@ export default async function HomePage() {
         <div className="manifesto-foot"><span className="manifesto-star">✳</span><span>Sometimes noticing is enough.</span><span className="manifesto-rule" /></div>
       </section>
 
-      <StardanceDispatch />
 
       <nav className="topic-rail wrap" aria-label="Browse journal themes">
         <span className="topic-kicker">PICK A THREAD</span>
