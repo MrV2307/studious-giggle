@@ -189,7 +189,6 @@ export default function FieldKit() {
     }
   }
 
-  const hasArticle = pathname.startsWith("/blogs/");
 
   return (
     <>
