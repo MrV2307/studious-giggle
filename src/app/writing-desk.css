@@ -110,7 +110,8 @@
 .writer-markdown-note { color: #7b8ca4; font: 9px 'DM Mono', monospace; }
 .writer-editor-toolbar { display: flex; flex-wrap: wrap; gap: 6px; padding: 9px; border: 1px solid rgb(220 234 255 / 14%); border-bottom: 0; border-radius: 10px 10px 0 0; background: rgb(255 255 255 / 3%); }
 .writer-editor-toolbar button { min-width: 35px; min-height: 34px; padding: 5px 10px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: #bec9da; font: 10px 'DM Mono', monospace; transition: color .2s ease, background .2s ease, border-color .2s ease; }
-.writer-editor-toolbar button:hover { color: #d7ff64; border-color: rgb(216 255 114 / 23%); background: rgb(216 255 114 / 6%); }
+.writer-editor-toolbar button:hover:not(:disabled) { color: #d7ff64; border-color: rgb(216 255 114 / 23%); background: rgb(216 255 114 / 6%); }
+.writer-editor-toolbar button:disabled { opacity: .34; cursor: not-allowed; }
 .writer-mode-tabs { display: flex; gap: 6px; padding: 8px 9px 0; border-inline: 1px solid rgb(220 234 255 / 14%); background: rgb(255 255 255 / 3%); }
 .writer-mode-tabs button { padding: 8px 13px; border: 1px solid transparent; border-radius: 8px 8px 0 0; background: transparent; color: #a0aec1; font: 9px 'DM Mono', monospace; cursor: pointer; }
 .writer-mode-tabs button.is-active { border-color: rgb(124 232 240 / 27%); border-bottom-color: #101a2a; background: #101a2a; color: #9beef3; }
