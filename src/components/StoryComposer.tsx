@@ -76,35 +76,34 @@ export default function StoryComposer({ action }: { action: StoryAction }) {
   const readMinutes = wordCount ? Math.max(1, Math.ceil(wordCount / 200)) : 0;
 
   useEffect(() => {
-    if (!coverFile) {
-      setCoverUrl("");
-      return;
-    }
-    const url = URL.createObjectURL(coverFile);
-    setCoverUrl(url);
-    return () => URL.revokeObjectURL(url);
-  }, [coverFile]);
+    if (!coverUrl) return;
+    return () => URL.revokeObjectURL(coverUrl);
+  }, [coverUrl]);
 
   function handleCoverChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.currentTarget.files?.[0] || null;
     setCoverError("");
     if (!file) {
       setCoverFile(null);
+      setCoverUrl("");
       return;
     }
     if (!["image/jpeg", "image/png", "image/webp", "image/avif"].includes(file.type)) {
       setCoverFile(null);
+      setCoverUrl("");
       setCoverError("Please choose a JPG, PNG, WebP, or AVIF image.");
       event.currentTarget.value = "";
       return;
     }
     if (file.size > 1_500_000) {
       setCoverFile(null);
+      setCoverUrl("");
       setCoverError("This image is larger than 1.5 MB. Choose a smaller file so the journal stays quick to load.");
       event.currentTarget.value = "";
       return;
     }
     setCoverFile(file);
+    setCoverUrl(URL.createObjectURL(file));
   }
 
   function insertMarkup(before: string, after = "") {
