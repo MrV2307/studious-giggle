@@ -57,7 +57,7 @@ export default function AuthForm({ mode, configured = false }: { mode: "sign-in"
         <div className="field"><label htmlFor="email">EMAIL ADDRESS</label><input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required autoComplete="email" placeholder="you@example.com" /></div>
         <div className="field"><label htmlFor="password">PASSWORD</label><input id="password" type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} required minLength={signup ? 8 : undefined} autoComplete={signup ? "new-password" : "current-password"} placeholder="Your password" /><label className="show-password"><input type="checkbox" checked={showPassword} onChange={e => setShowPassword(e.target.checked)} /> <span>Show password</span></label>{signup && <small>Use at least 8 characters. A longer passphrase is often easier to remember and harder to guess.</small>}</div>
         <button className="btn auth-submit" type="submit" disabled={busy}>{busy ? "Opening the notebook…" : signup ? "Start my notebook ↗" : "Step back inside ↗"}</button>
-        <div className="form-bottom">{signup ? <>Already have a place here? <Link href="/sign-in">Sign in</Link></> : <>First time in the margins? <Link href="/sign-up">Make an account</Link>}</div>
+        <div className="form-bottom">{signup ? <>Already have a place here? <Link href="/sign-in">Sign in</Link></> : <>First time in the margins? <Link href="/sign-up">Make an account</Link></>}</div>
         <div className="auth-card-foot"><span>NO NOISE. JUST IDEAS.</span><span>✳</span></div>
       </form>
     </section>

@@ -28,11 +28,14 @@ export default function SaveStoryButton({ slug, title }: { slug: string; title: 
 
   useEffect(() => {
     const refresh = () => setSaved(readSaved().some((story) => story.slug === slug));
-    refresh();
-    setReady(true);
+    const initialRefresh = window.requestAnimationFrame(() => {
+      refresh();
+      setReady(true);
+    });
     window.addEventListener("storage", refresh);
     window.addEventListener("margin:saved-stories-change", refresh);
     return () => {
+      window.cancelAnimationFrame(initialRefresh);
       window.removeEventListener("storage", refresh);
       window.removeEventListener("margin:saved-stories-change", refresh);
     };

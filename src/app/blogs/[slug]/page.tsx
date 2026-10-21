@@ -16,7 +16,7 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params; const post = await getPostBySlug(slug);
   if (!post) return { title: "Story not found" };
-  return { title: post.title, description: post.excerpt, openGraph: { type: "article", title: post.title, description: post.excerpt, publishedTime: new Date(post.publishedAt || post.createdAt || Date.now()).toISOString(), authors: [post.authorName], tags: post.tags } };
+  return { title: post.title, description: post.excerpt, openGraph: { type: "article", title: post.title, description: post.excerpt, publishedTime: new Date(post.publishedAt || post.createdAt || "2026-01-01T00:00:00.000Z").toISOString(), authors: [post.authorName], tags: post.tags } };
 }
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params; const post = await getPostBySlug(slug); if (!post) notFound();

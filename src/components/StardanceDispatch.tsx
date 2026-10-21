@@ -63,7 +63,7 @@ export default function StardanceDispatch() {
       </div>
 
       <div className="stardance-footline">
-        <span>BUILT FOR HACK CLUB'S STARDANCE CHALLENGE</span>
+        <span>BUILT FOR HACK CLUB&apos;S STARDANCE CHALLENGE</span>
         <span>INDEPENDENT STUDENT PROJECT · NOT AN OFFICIAL PARTNER PRODUCT</span>
       </div>
     </section>

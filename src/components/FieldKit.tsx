@@ -54,24 +54,28 @@ export default function FieldKit() {
   const refreshSaved = useCallback(() => setSaved(readSavedStories()), []);
 
   useEffect(() => {
-    refreshSaved();
+    const initialRefresh = window.requestAnimationFrame(refreshSaved);
     const handleChange = () => refreshSaved();
     window.addEventListener("storage", handleChange);
     window.addEventListener("margin:saved-stories-change", handleChange);
     return () => {
+      window.cancelAnimationFrame(initialRefresh);
       window.removeEventListener("storage", handleChange);
       window.removeEventListener("margin:saved-stories-change", handleChange);
     };
   }, [refreshSaved]);
 
   useEffect(() => {
-    try {
-      setNotes(window.localStorage.getItem(NOTES_KEY) || "");
-    } catch {
-      setNoteStatus("Browser storage is unavailable. Copy important notes elsewhere.");
-    } finally {
-      setNotesLoaded(true);
-    }
+    const initialLoad = window.requestAnimationFrame(() => {
+      try {
+        setNotes(window.localStorage.getItem(NOTES_KEY) || "");
+      } catch {
+        setNoteStatus("Browser storage is unavailable. Copy important notes elsewhere.");
+      } finally {
+        setNotesLoaded(true);
+      }
+    });
+    return () => window.cancelAnimationFrame(initialLoad);
   }, []);
 
   useEffect(() => {
@@ -97,7 +101,9 @@ export default function FieldKit() {
   }, [focusMode]);
 
   useEffect(() => {
-    if (!pathname.startsWith("/blogs/")) setFocusMode(false);
+    const resetFocus = !pathname.startsWith("/blogs/")
+      ? window.requestAnimationFrame(() => setFocusMode(false))
+      : 0;
     const update = () => {
       const article = document.querySelector<HTMLElement>(".article-body");
       if (article) {
@@ -117,7 +123,10 @@ export default function FieldKit() {
         update();
       });
     };
-    update();
+    frame = window.requestAnimationFrame(() => {
+      frame = 0;
+      update();
+    });
     const main = document.querySelector("main");
     const observer = main && "MutationObserver" in window ? new MutationObserver(update) : null;
     if (main && observer) observer.observe(main, { childList: true, subtree: true, characterData: true });
@@ -128,6 +137,7 @@ export default function FieldKit() {
       window.removeEventListener("resize", onScroll);
       observer?.disconnect();
       if (frame) window.cancelAnimationFrame(frame);
+      if (resetFocus) window.cancelAnimationFrame(resetFocus);
     };
   }, [pathname]);
 

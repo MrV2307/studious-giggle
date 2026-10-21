@@ -104,7 +104,6 @@ export default function MotionEnhancements() {
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
     window.addEventListener("keydown", onKeyDown);
-    update();
     onScroll();
 
     return () => {
