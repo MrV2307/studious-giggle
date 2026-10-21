@@ -152,12 +152,12 @@ export default function StoryComposer({ action }: { action: StoryAction }) {
           <div className="writer-body-field writer-field field">
             <div className="writer-label-row writer-body-label"><label htmlFor="content">The story itself</label><span className="writer-markdown-note">Markdown supported</span></div>
             <div className="writer-editor-toolbar" role="group" aria-label="Insert Markdown formatting">
-              <button type="button" onClick={() => insertMarkup("## ")} aria-label="Insert a level two heading">H2</button>
-              <button type="button" onClick={() => insertMarkup("**", "**")} aria-label="Make selected text bold"><strong>B</strong></button>
-              <button type="button" onClick={() => insertMarkup("*", "*")} aria-label="Make selected text italic"><em>I</em></button>
-              <button type="button" onClick={() => insertMarkup("> ")} aria-label="Start a quote">“ ”</button>
-              <button type="button" onClick={() => insertMarkup("- ")} aria-label="Start a bullet point">• List</button>
-              <button type="button" onClick={() => insertMarkup("[", "](https://example.com)")} aria-label="Insert a link">↗ Link</button>
+              <button type="button" disabled={mode !== "write"} onClick={() => insertMarkup("## ")} aria-label="Insert a level two heading">H2</button>
+              <button type="button" disabled={mode !== "write"} onClick={() => insertMarkup("**", "**")} aria-label="Make selected text bold"><strong>B</strong></button>
+              <button type="button" disabled={mode !== "write"} onClick={() => insertMarkup("*", "*")} aria-label="Make selected text italic"><em>I</em></button>
+              <button type="button" disabled={mode !== "write"} onClick={() => insertMarkup("> ")} aria-label="Start a quote">“ ”</button>
+              <button type="button" disabled={mode !== "write"} onClick={() => insertMarkup("- ")} aria-label="Start a bullet point">• List</button>
+              <button type="button" disabled={mode !== "write"} onClick={() => insertMarkup("[", "](https://example.com)")} aria-label="Insert a link">↗ Link</button>
             </div>
             <div className="writer-mode-tabs" role="group" aria-label="Choose writing view">
               <button type="button" className={mode === "write" ? "is-active" : ""} aria-pressed={mode === "write"} onClick={() => setMode("write")}>Write</button>
@@ -178,6 +178,7 @@ export default function StoryComposer({ action }: { action: StoryAction }) {
                 aria-describedby="story-body-guidance story-metrics"
               />
             ) : (
+              <input type="hidden" name="content" value={content} />
               <div className="writer-preview-panel" aria-label="Live story preview">
                 <div className="writer-preview-eyebrow">{category} / MARGIN JOURNAL</div>
                 <h2>{title.trim() || "A story in progress"}</h2>
