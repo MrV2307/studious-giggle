@@ -2,12 +2,37 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import StoryComposer from "@/components/StoryComposer";
 import { createPost } from "@/app/actions";
 import { auth } from "@/lib/auth";
+
 export const metadata: Metadata = { title: "Write a story", robots: { index: false, follow: false } };
+
 export default async function WritePage() {
   if (!auth) redirect("/sign-in?setup=required");
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) redirect("/sign-in?callbackURL=/write");
-  return <main className="wrap editor-shell"><Link href="/blogs" className="back-link">← Back to journal</Link><div className="eyebrow">The writing desk</div><h1>A fresh page.</h1><p className="editor-sub">Write the thing you wish you had read. Take your time.</p><form action={createPost} encType="multipart/form-data"><div className="editor-grid"><div className="editor-main"><div className="field"><label htmlFor="title">Title</label><input id="title" name="title" required maxLength={130} placeholder="A title with a little room to breathe"/></div><div className="field"><label htmlFor="excerpt">Short introduction</label><textarea id="excerpt" name="excerpt" required maxLength={260} placeholder="What's this story about?"/><small>Appears on the journal card and above the story.</small></div><div className="field"><label htmlFor="content">Story body (Markdown supported)</label><textarea id="content" name="content" required maxLength={50000} className="body-input" placeholder={'Begin anywhere. A moment, a question, a small thing you noticed…\n\n## A little heading\n\nUse Markdown for headings, links, lists, quotes, and more.'}/><small>Markdown and GitHub-flavoured Markdown are supported. Raw HTML is not rendered.</small></div></div><aside className="editor-aside"><h3>Story details</h3><div className="field"><label htmlFor="coverImage">Cover image <span aria-hidden="true">*</span></label><input id="coverImage" name="coverImage" type="file" accept="image/jpeg,image/png,image/webp,image/avif" required/><small>Required. JPG, PNG, WebP or AVIF · max 1.5 MB. A strong landscape photo works best.</small></div><div className="field"><label htmlFor="category">Category</label><select id="category" name="category" defaultValue="Field notes"><option>Mindful living</option><option>Slow living</option><option>Field notes</option><option>Creative practice</option><option>Reading room</option><option>Personal essay</option></select></div><div className="field"><label htmlFor="tags">Tags (comma-separated)</label><input id="tags" name="tags" placeholder="Writing, Reflection"/></div><p>Your story gets a readable URL based on its title.</p><div className="notice">Your story will not publish without its own cover image. The image is stored with your story and used on cards and the article page.</div><button className="btn" type="submit" style={{ width: "100%" }}>Publish story ↗</button></aside></div></form></main>;
+
+  return (
+    <main className="write-story-page editor-shell">
+      <Link href="/blogs" className="back-link">← Back to journal</Link>
+      <section className="write-story-heading" aria-labelledby="write-title">
+        <div className="write-story-heading-art" aria-hidden="true">
+          <span className="write-art-ring write-art-ring-one" />
+          <span className="write-art-ring write-art-ring-two" />
+          <span className="write-art-spark">✳</span>
+        </div>
+        <div className="eyebrow">The writing desk · open edition 04</div>
+        <h1 id="write-title">Make room for<br /><em>a thought.</em></h1>
+        <p className="editor-sub">Start with the bit you can't stop thinking about. It doesn't have to be polished to be worth sharing.</p>
+        <div className="write-story-signals" aria-label="Writing desk features">
+          <span><i aria-hidden="true">✳</i> Live word count</span>
+          <span><i aria-hidden="true">◌</i> Markdown preview</span>
+          <span><i aria-hidden="true">↗</i> Cover image preview</span>
+        </div>
+      </section>
+      <StoryComposer action={createPost} />
+      <p className="write-story-footer-note"><span aria-hidden="true">✳</span> There is no perfect first draft. There is only the next sentence.</p>
+    </main>
+  );
 }
