@@ -177,13 +177,15 @@ export default function StoryComposer({ action }: { action: StoryAction }) {
                 aria-describedby="story-body-guidance story-metrics"
               />
             ) : (
-              <input type="hidden" name="content" value={content} />
-              <div className="writer-preview-panel" aria-label="Live story preview">
+              <>
+                <input type="hidden" name="content" value={content} />
+                <div className="writer-preview-panel" aria-label="Live story preview">
                 <div className="writer-preview-eyebrow">{category} / MARGIN JOURNAL</div>
                 <h2>{title.trim() || "A story in progress"}</h2>
                 {excerpt.trim() && <p className="writer-preview-excerpt">{excerpt}</p>}
                 <MarkdownPreview value={content} />
-              </div>
+                </div>
+              </>
             )}
             <div className="writer-story-metrics" id="story-metrics" aria-live="polite">
               <span><strong>{wordCount.toLocaleString()}</strong> words</span><span aria-hidden="true">·</span><span>{readMinutes ? `About ${readMinutes} min read` : "Reading time appears as you write"}</span><span className="writer-metric-spacer" /><span>{content.length.toLocaleString()}/50,000 characters</span>
