@@ -1,22 +1,22 @@
 export type EditorialImageInput = { _id?: unknown; imageUrl?: string | null; slug?: string; category?: string; title?: string; tags?: string[] };
 
 const photos = {
-  landscape: { src: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1800&q=85", alt: "Soft sunlight spilling over a misty green landscape" },
-  botanical: { src: "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1400&q=85", alt: "Leafy houseplant in natural window light" },
-  coffee: { src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=85", alt: "Coffee and the small rituals around a quiet morning" },
-  city: { src: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1400&q=85", alt: "A city street full of small details" },
-  writing: { src: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1400&q=85", alt: "A notebook and writing desk ready for a first draft" },
-  books: { src: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1400&q=85", alt: "Books gathered on a well-loved shelf" },
-  flowers: { src: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1400&q=85", alt: "Fresh flowers in soft natural light" },
-  coast: { src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1400&q=85", alt: "Ocean waves meeting the shore" },
-  architecture: { src: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1400&q=85", alt: "Sculptural modern architecture and clean lines" },
-  food: { src: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1400&q=85", alt: "A colourful table of fresh food" },
-  art: { src: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=1400&q=85", alt: "Expressive colours on an artist's canvas" },
-  mountain: { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=85", alt: "Layered mountain peaks in clear air" },
-  people: { src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=85", alt: "Friends sharing an unhurried moment outdoors" },
-  technology: { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=85", alt: "A close view of electronic components and modern tools" },
-  interiors: { src: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1400&q=85", alt: "A calm, thoughtfully arranged interior" },
-  night: { src: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1400&q=85", alt: "A quiet night sky above a distant horizon" },
+  landscape: { src: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1800&q=85", alt: "A view of Earth’s blue curve against the darkness of space" },
+  botanical: { src: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1400&q=85", alt: "Sunlit leaves and soft green shapes in a botanical corner" },
+  coffee: { src: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1400&q=85", alt: "A richly textured coffee moment in warm morning light" },
+  city: { src: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1400&q=85", alt: "A city skyline glowing against the blue hour" },
+  writing: { src: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1400&q=85", alt: "An open notebook waiting for a first draft" },
+  books: { src: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1400&q=85", alt: "A well-loved open book in a quiet reading space" },
+  flowers: { src: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=1400&q=85", alt: "Fresh flowers arranged in soft natural light" },
+  coast: { src: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=85", alt: "Deep blue ocean waves folding onto the shore" },
+  architecture: { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1400&q=85", alt: "Sculptural modern architecture seen in clean daylight" },
+  food: { src: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1400&q=85", alt: "Fresh ingredients arranged across a colourful kitchen table" },
+  art: { src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1400&q=85", alt: "A colourful artist’s workspace with paint and canvas" },
+  mountain: { src: "https://images.unsplash.com/photo-1464278533981-50106e6176b1?auto=format&fit=crop&w=1400&q=85", alt: "Mountain peaks layered against a wide open sky" },
+  people: { src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=85", alt: "People sharing ideas around a collaborative table" },
+  technology: { src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=85", alt: "A luminous view of global technology and connected systems" },
+  interiors: { src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85", alt: "A thoughtful interior with warm materials and quiet light" },
+  night: { src: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1400&q=85", alt: "A vivid nebula glowing within a deep field of stars" },
 } as const;
 
 export type EditorialPhotoKey = keyof typeof photos;
