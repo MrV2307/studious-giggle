@@ -39,6 +39,7 @@ export default async function HomePage() {
           </div>
           <span className="hero-orbit hero-orbit-one" aria-hidden="true" />
           <span className="hero-orbit hero-orbit-two" aria-hidden="true" />
+          <span className="hero-orbit-green" aria-hidden="true" />
           <span className="hero-orbit-spark" aria-hidden="true">✳</span>
           <span className="hero-orbit-copy" aria-hidden="true">KEEP<br />WONDERING</span>
           <span className="hero-glass-chip hero-glass-chip-top" aria-hidden="true"><span className="glass-pulse-dot" /> CURIOSITY SIGNAL / LIVE</span>
