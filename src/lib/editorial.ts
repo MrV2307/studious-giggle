@@ -24,6 +24,7 @@ export type EditorialPhotoKey = keyof typeof photos;
 export function photoForPost(post: EditorialImageInput): { src: string; alt: string } {
   if (post.imageUrl) return { src: post.imageUrl, alt: post.title ? `Cover image for ${post.title}` : "Story cover image" };
   const text = `${post.slug ?? ""} ${post.category ?? ""} ${post.title ?? ""} ${(post.tags ?? []).join(" ")}`.toLowerCase();
+  if (/cosmos|nebula|galaxy|universe|star|astronomy/.test(text)) return photos.night;
   if (/tech|digital|internet|device|ai|code/.test(text)) return photos.technology;
   if (/architecture|building|design|interior|home|space/.test(text)) return /interior|home|room/.test(text) ? photos.interiors : photos.architecture;
   if (/food|cook|recipe|meal|eat|kitchen/.test(text)) return photos.food;
