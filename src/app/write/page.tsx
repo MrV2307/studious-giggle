@@ -24,7 +24,7 @@ export default async function WritePage() {
         </div>
         <div className="eyebrow">The writing desk · open edition 04</div>
         <h1 id="write-title">Make room for<br /><em>a thought.</em></h1>
-        <p className="editor-sub">Start with the bit you can't stop thinking about. It doesn't have to be polished to be worth sharing.</p>
+        <p className="editor-sub">Start with the bit you can&apos;t stop thinking about. It doesn&apos;t have to be polished to be worth sharing.</p>
         <div className="write-story-signals" aria-label="Writing desk features">
           <span><i aria-hidden="true">✳</i> Live word count</span>
           <span><i aria-hidden="true">◌</i> Markdown preview</span>
